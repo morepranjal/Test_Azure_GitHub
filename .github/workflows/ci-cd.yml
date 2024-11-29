@@ -1,0 +1,50 @@
+name: Deploy Azure Resources with Terraform
+ 
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main
+ 
+env:
+  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+ 
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
+ 
+    # Set up Terraform CLI
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.7  # Specify the Terraform version
+ 
+    # Log in to Azure
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+ 
+    # Terraform Init
+    - name: Terraform Init
+      run: terraform init
+ 
+    # Terraform Validate
+    - name: Terraform Validate
+      run: terraform validate
+ 
+    # Terraform Plan
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan
+ 
+    # Terraform Apply
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve tfplan
