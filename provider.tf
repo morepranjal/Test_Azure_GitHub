@@ -6,8 +6,6 @@ terraform {
     }
   }
 }
-# variable "client_secret" {
-# }
 
 provider "azurerm" {
   features {}
