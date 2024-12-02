@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+
 provider "azurerm" {
   features {}
   client_id       = "45b5de6f-333e-4e0b-9146-441630f7a13a"
