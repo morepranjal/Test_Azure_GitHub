@@ -7,5 +7,5 @@ variable "deploy_location" {
 variable "rg_name" {
   type        = string
   description = "Name of the Resource group in which to deploy shared resources"
-  default     = "TerraformGitHubRG1"
+  default     = "TerraformGitHubRG2"
 }
