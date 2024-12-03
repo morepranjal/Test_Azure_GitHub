@@ -83,7 +83,7 @@ resource "azurerm_monitor_action_group" "actionGrp" {
 resource "azurerm_monitor_metric_alert" "azure_VM_CPU_alert" {
   name                = "Test_CPU_Alert_VMMonitor"
   resource_group_name = azurerm_resource_group.example.name
-  scopes              =  [azurerm_windows_virtual_machine.main.id]
+  scopes              =  [azurerm_virtual_machine.main.id]
   severity = 3
   enabled = true
   frequency = "PT1M"
