@@ -67,3 +67,37 @@ resource "azurerm_virtual_machine" "main" {
     environment = "staging"
   }
 }
+
+resource "azurerm_monitor_action_group" "actionGrp" {
+  name                = "PranjalActionGrp"
+  resource_group_name = azurerm_resource_group.example.name
+  short_name          = "Ag-pranjal"
+ 
+  email_receiver {
+    name                    = "Pranjal"
+    email_address           = "more.pranjalthakaram@hcltech.com"
+    use_common_alert_schema = true
+  }
+}
+ 
+resource "azurerm_monitor_metric_alert" "azure_VM_CPU_alert" {
+  name                = "Test_CPU_Alert_VMMonitor"
+  resource_group_name = azurerm_resource_group.example.name
+  scopes              =  [azurerm_windows_virtual_machine.main.id]
+  severity = 3
+  enabled = true
+  frequency = "PT1M"
+  window_size = "PT5M"
+ 
+  criteria {
+    metric_namespace = "Microsoft.Compute/virtualMachines"
+    metric_name      = "Percentage CPU"
+    aggregation      = "Average"
+    operator         = "GreaterThan"
+    threshold        = 10
+  }
+ 
+  action {
+    action_group_id = azurerm_monitor_action_group.actionGrp.id
+  }
+}
