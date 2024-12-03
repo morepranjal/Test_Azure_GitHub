@@ -5,3 +5,6 @@ module "RG" {
 module "vm" {
  source = "./virtual machine"
 }
+module "stg"{
+    source = "./storageaccount"
+}
