@@ -20,16 +20,16 @@
 
 
 
-data "azurerm_key_vault" "existing" {
- name                = "github-test"
- resource_group_name = "TerraformGitHubRG2"
-}
+# data "azurerm_key_vault" "existing" {
+#  name                = "github-test"
+#  resource_group_name = "TerraformGitHubRG2"
+# }
 
-data "azurerm_key_vault_secret" "example" {
-  name         = "subscriptionid"
-  key_vault_id = data.azurerm_key_vault.existing.id
-}
+# data "azurerm_key_vault_secret" "example" {
+#   name         = "subscriptionid"
+#   key_vault_id = data.azurerm_key_vault.existing.id
+# }
 
-output "secret_value" {
-  value = nonsensitive(data.azurerm_key_vault_secret.example.value)
-}
+# output "secret_value" {
+#   value = nonsensitive(data.azurerm_key_vault_secret.example.value)
+# }
